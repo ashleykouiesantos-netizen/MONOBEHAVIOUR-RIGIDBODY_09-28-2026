@@ -1,1 +1,122 @@
+// MONOBEHAVIOUR AND RIGIDBODY SCRIPT UNITY MOVEMENT
+// GRID BASED, FREE(VECTOR BASED), PHYSICS MOVEMENT
+
+// GRID BASE MOVEMENT
+// Attach this to the character GAmeObject. Good for roquelikes,puzzle games, tactics games.
+// The character snaps to whole tile position rather than moving continuously.
+
+// Code Proper
+using UnityEngine;
+
+public class GridMovement : MonoBehavior
+{
+    public float tileSize = 1.0f; // size of one grid cell
+    public float moveSpeed = 10f; // how fast your character glide between tile ( feel, not logic)
+
+    private Vector3 targetPosition;
+    private bool isMoving = false;
+    
+    void start()
+    {
+    if (!isMoving)
+    {
+        HandleInput();
+    }
+    else
+    {
+
+        //Smoothy glide to the next tile(this is presentation, not the actual logic)
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, movwSpeed*Time.delta.time);
+        if (Vector3. Distance(transform.position, targetPosition),0.001f)
+        {
+        transform.position = targetPosition;
+            isMoving = false
+            }
+        }
+    }
+    void Handleinput()
+    {
+        vector3 direction = vector3.zero;
+
+        if(input.GetKeyDown(KeyDown.W)) direction = Vector3.up;
+        if(input.GetKeyDown(KeyDown.W)) direction = Vector3.down;
+        if(input.GetKeyDown(KeyDown.W)) direction = Vector3.left;
+        if(input.GetKeyDown(KeyDown.W)) direction = Vector3.right;
+
+        if((direction != Vector3. zero)
+           {
+               targetPosition = transform.position + direction*tileSize;
+               isMoving = true;
+
+           }
+
+     }
+Vector3 SnapToGrid(Vector3 pos)
+           {
+    return new Vector3(
+        Mathf.Round(pos.x / tileSize)* tileSize
+        Mathf.Round(pos.x / tileSize)* tileSize
+        pos.z
+        );
+    }
+}
+
+// FREE (VECTO - BASED) MOVEMENT
+
+using UnityEngine:
+
+public class FreeMovewment ; MonoBehavior
+           {
+               public float moveSpeed = 5f;
+
+               void Update()
+               {
+//GetAxis give smooth values between -1 and 1 (supports keyboard and controler)
+                float horizontal = Input.GetAxis("Horizontal")
+                float horizontal = Input.GetAxis("vertical")
+
+                Vector direction = new Vector3(horizontal, vertical, 0f);
+
+// normalize
+if (direction.magnitude > 1f)
+{
+    direction.Normalize();
+}
+    transform.position += direction *moveSpeed *  time.deltaTime:
+               }
+           }
+
+//PHYSICS BASED MOVEMENT
+// Attach this to character GameObject that also has a Rigidbody2D component
+//(Component > Physiscs 2D > Ridgidbody 2D). Good for platformers with, momentum, vehicles, anything that should feel like it has mass, gravity, and friction.
+
+using UnityEngine;
+
+[RequiredComponent(typeof(Rigidbody 2D))]
+public class PhysicsMovement : MonoBehavior
+{
+ public float moveForce = 10f;   
+ public float jumpForce = 7f;
+ public float masSpeed = 6f;
+
+ private Rigidbody rb;
+ private bool isGrounded = false;
+
+void start()
+{
+    rb = GetComponent<Rigidbody. 2D>():
+
+// clam  horizontal speed so the character
+}
+           }
+    of (Math.abs(rb.velocity.x)> maxSpeed)
+{
+rb.Velocity = new Vector2(Math.Sign(rb.velocity.x)* maxSpeed, rb. velocity.y)
+  }
+}
+void OnCollisionEnter2D(Collision colission)
+{
+ if(Collision.gameObject. Comparetag("Ground")
+{
+isGrounded = true:
 
